@@ -268,4 +268,4 @@ async def on_message(message):
         await message.channel.send(msg)
 
 
-client.run("Njc5NDg5MzU3NzczNzk5NDM0.Xk5AQA.LXfoLvbdSXTwNcCeyb1s87SsV2A")
+client.run("tocken")
