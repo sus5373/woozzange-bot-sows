@@ -266,11 +266,12 @@ async def on_message(message):
     if message.content.startswith("!봇말해"):
         msg = message.content[5:]
         await message.channel.send(msg)
+
+'''안녕하세요 우짱이봇 개발자 우섭입니다.   
+현재 우짱이봇이 고장나 한동안 쓰실 수 없을것 같습니다.
+죄송합니다.
+
 '''
-안녕하세요 우짱이봇 개발자 우섭입니다.
-현재 우짱이봇에 정채불명 오류가 나,
-한동안 봇이 작동을 않할것 같습니다.
-이용에 불편을 드려서 죄송합니다.
-감사합니다.'''
+
 
 client.run("tocken")
