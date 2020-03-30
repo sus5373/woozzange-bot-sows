@@ -14,13 +14,47 @@ client = discord.Client()
 async def on_ready():
         print(client.user.id)
         print("ready")
-        game = discord.Game("!도움말 | 온라인이여도 상태메시지가 없을 경우 기능이 작동하지 않습니다.")
-        await client.change_presence(status=discord.Status.idle,activity=game)
+        game = discord.Game("!도움말 ")
+        await client.change_presence(status=discord.Status.online,activity=game)
 
 @client.event
 async def on_message(message):
-    if message.content == "!test crolling":
-        response = requests.get('https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=대구')
+    if message.content.startswith("!chatlog user"):
+        if message.author.id == 570211549143105538:
+            author = message.content[14:32]
+            file = openpyxl.load_workbook("채팅로그.xlsx")
+            sheet = file.active
+            i = 1
+            while True:
+                if sheet["A" + str(i)].value == str(author):
+                    if sheet["E" + str(i)].value == str(message.guild.id):
+                        if sheet["D" + str(i)].value == str(message.channel.id):
+                            msg = sheet["B" + str(i)].value + "(" + sheet["A" + str(i)].value + ") : " + sheet["C" + str(i)].value
+                            await message.channel.send(msg)
+
+                if sheet["A" + str(i)].value == None:
+                     await message.channel.send("이하 여백")
+                     break
+                i += 1
+        if message.author.id == 345265069132742657:
+            author = message.content[14:32]
+            file = openpyxl.load_workbook("채팅로그.xlsx")
+            sheet = file.active
+            i = 1
+            while True:
+               if sheet["A" + str(i)].value == str(author):
+                    if sheet["E" + str(i)].value == str(message.guild.id):
+                       if sheet["D" + str(i)].value == str(message.channel.id):
+                            msg = sheet["B" + str(i)].value + "(" + sheet["A" + str(i)].value + ") : " + sheet["C" + str(i)].value
+                            await message.channel.send(msg)
+
+               if sheet["A" + str(i)].value == None:
+                    await message.channel.send("이하 여백")
+                    break
+            i += 1
+
+    if message.content == "!코로나현황":
+        response = requests.get('https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=코로나')
         readerhtml = response.text
         soup = BeautifulSoup(readerhtml, 'lxml')
         data1 = soup.find('div', class_='graph_view')
@@ -32,16 +66,13 @@ async def on_message(message):
         die = data3[1].find('p', class_='txt').find('strong', class_='num').text
         wasup = soup.find('div', class_='csp_notice_info').find('p').find_all(text=True, recursive=True)
         # ===============================
-        coembed = discord.Embed(color=0xFF0000, title='코로나현황', description=f'{wasup[1]}')
+        coembed = discord.Embed(color=0x192131, title='코로나현황', description=f'{wasup[1]}')
         coembed.add_field(name="확진자", value=f'{checked}명', inline=True)
         coembed.add_field(name="격리해제", value=f'{free}명', inline=True)
         coembed.add_field(name="검사중", value=f'{checking}명', inline=True)
         coembed.add_field(name="사망자", value=f'{die}명', inline=True)
-        coembed.set_footer(text=datetime.today().strftime("%Y년 %m월 %d일 %H:%M:%S | https://gist.github.com/SaidBySolo"))
+        coembed.set_footer(text=datetime.today().strftime("%Y년 %m월 %d일 %H:%M:%S | https://github.com/sus5373/woozzange-bot-sows"))
         await message.channel.send(embed=coembed)
-
-    if message.conent == "!코로나현황":
-        await message.channel.send("현재 테스트로 인하여 기능을 삭제하였습니다.")
 
     if message.content == ("!도움말 2"):
         msg = "도움말 2 페이지 입니다."
@@ -267,4 +298,5 @@ async def on_message(message):
         msg = message.content[5:]
         await message.channel.send(msg)
 
-client.run("tocken")
+
+client.run("tocken(여기있는토큰가져간놈 걸리면영정한다)")
