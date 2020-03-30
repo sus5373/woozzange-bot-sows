@@ -267,11 +267,4 @@ async def on_message(message):
         msg = message.content[5:]
         await message.channel.send(msg)
 
-'''안녕하세요 우짱이봇 개발자 우섭입니다.   
-현재 우짱이봇이 고장나 한동안 쓰실 수 없을것 같습니다.
-죄송합니다.
-
-'''
-
-
 client.run("tocken")
