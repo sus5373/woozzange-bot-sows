@@ -21,37 +21,134 @@ async def on_ready():
 async def on_message(message):
     if message.content.startswith("!chatlog user"):
         if message.author.id == 570211549143105538:
+            await message.channel.send("채팅로그불러오기를 시작합니다. 채팅로그를 불러오는 도중에 채팅을 치시면 에러 혹은 불러오기가 안될 수 있습니다.")
             author = message.content[14:32]
             file = openpyxl.load_workbook("채팅로그.xlsx")
             sheet = file.active
+            msg = "채팅로그를 불러온 결과입니다."
+            foot = datetime.today().strftime("%Y년 %m월 %d일 %H시 %M분 %S초")
+            embed = discord.Embed(title="채팅로그", description=msg,color=0xDF013A)  # Embed의 기본 틀(색상, 메인 제목, 설명)을 잡아줍니다
+            embed.set_footer(text=foot)  # 하단에 들어가는 조그마한 설명을 잡아줍니다
             i = 1
             while True:
                 if sheet["A" + str(i)].value == str(author):
                     if sheet["E" + str(i)].value == str(message.guild.id):
                         if sheet["D" + str(i)].value == str(message.channel.id):
-                            msg = sheet["B" + str(i)].value + "(" + sheet["A" + str(i)].value + ") : " + sheet["C" + str(i)].value
-                            await message.channel.send(msg)
+                            embed.add_field(name=sheet["B" + str(i)].value + "(" + sheet["A" + str(i)].value + ")", value=sheet["C" + str(i)].value, inline=True)
 
                 if sheet["A" + str(i)].value == None:
-                     await message.channel.send("이하 여백")
                      break
                 i += 1
+            await message.channel.send(embed=embed)
+
         if message.author.id == 345265069132742657:
+            await message.channel.send("채팅로그불러오기를 시작합니다. 채팅로그를 불러오는 도중에 채팅을 치시면 에러 혹은 불러오기가 안될 수 있습니다.")
             author = message.content[14:32]
             file = openpyxl.load_workbook("채팅로그.xlsx")
             sheet = file.active
+            msg = "채팅로그를 불러온 결과입니다."
+            foot = datetime.today().strftime("%Y년 %m월 %d일 %H시 %M분 %S초")
+            embed = discord.Embed(title="채팅로그", description=msg, color=0xDF013A)  # Embed의 기본 틀(색상, 메인 제목, 설명)을 잡아줍니다
+            embed.set_footer(text=foot)  # 하단에 들어가는 조그마한 설명을 잡아줍니다
             i = 1
             while True:
-               if sheet["A" + str(i)].value == str(author):
+                if sheet["A" + str(i)].value == str(author):
                     if sheet["E" + str(i)].value == str(message.guild.id):
-                       if sheet["D" + str(i)].value == str(message.channel.id):
-                            msg = sheet["B" + str(i)].value + "(" + sheet["A" + str(i)].value + ") : " + sheet["C" + str(i)].value
-                            await message.channel.send(msg)
+                        if sheet["D" + str(i)].value == str(message.channel.id):
+                            embed.add_field(name=sheet["B" + str(i)].value + "(" + sheet["A" + str(i)].value + ")",
+                                            value=sheet["C" + str(i)].value, inline=True)
 
-               if sheet["A" + str(i)].value == None:
-                    await message.channel.send("이하 여백")
+                if sheet["A" + str(i)].value == None:
                     break
+                i += 1
+            await message.channel.send(embed=embed)
+
+    if message.content.startswith("!chatlog name"):
+        if message.author.id == 570211549143105538:
+            await message.channel.send("채팅로그불러오기를 시작합니다. 채팅로그를 불러오는 도중에 채팅을 치시면 에러 혹은 불러오기가 안될 수 있습니다.")
+            author = message.content[14:]
+            file = openpyxl.load_workbook("채팅로그.xlsx")
+            sheet = file.active
+            msg = "채팅로그를 불러온 결과입니다."
+            foot = datetime.today().strftime("%Y년 %m월 %d일 %H시 %M분 %S초")
+            embed = discord.Embed(title="채팅로그", description=msg, color=0xDF013A)  # Embed의 기본 틀(색상, 메인 제목, 설명)을 잡아줍니다
+            embed.set_footer(text=foot)  # 하단에 들어가는 조그마한 설명을 잡아줍니다
+            i = 1
+            while True:
+                if sheet["B" + str(i)].value == str(author):
+                    if sheet["E" + str(i)].value == str(message.guild.id):
+                        if sheet["D" + str(i)].value == str(message.channel.id):
+                            embed.add_field(name=sheet["B" + str(i)].value + "(" + sheet["A" + str(i)].value + ")",
+                                            value=sheet["C" + str(i)].value, inline=True)
+
+                if sheet["A" + str(i)].value == None:
+                    break
+                i += 1
+            await message.channel.send(embed=embed)
+    if message.author.id == 345265069132742657:
+        await message.channel.send("채팅로그불러오기를 시작합니다. 채팅로그를 불러오는 도중에 채팅을 치시면 에러 혹은 불러오기가 안될 수 있습니다.")
+        author = message.content[14:]
+        file = openpyxl.load_workbook("채팅로그.xlsx")
+        sheet = file.active
+        msg = "채팅로그를 불러온 결과입니다."
+        foot = datetime.today().strftime("%Y년 %m월 %d일 %H시 %M분 %S초")
+        embed = discord.Embed(title="채팅로그", description=msg, color=0xDF013A)  # Embed의 기본 틀(색상, 메인 제목, 설명)을 잡아줍니다
+        embed.set_footer(text=foot)  # 하단에 들어가는 조그마한 설명을 잡아줍니다
+        i = 1
+        while True:
+            if sheet["B" + str(i)].value == str(author):
+                if sheet["E" + str(i)].value == str(message.guild.id):
+                    if sheet["D" + str(i)].value == str(message.channel.id):
+                        embed.add_field(name=sheet["B" + str(i)].value + "(" + sheet["A" + str(i)].value + ")",
+                                        value=sheet["C" + str(i)].value, inline=True)
+
+            if sheet["A" + str(i)].value == None:
+                break
             i += 1
+        await message.channel.send(embed=embed)
+
+    if message.content.startswith("!chatlog chat"):
+        if message.author.id == 570211549143105538:
+            await message.channel.send("채팅로그불러오기를 시작합니다. 채팅로그를 불러오는 도중에 채팅을 치시면 에러 혹은 불러오기가 안될 수 있습니다.")
+            author = message.content[14:]
+            file = openpyxl.load_workbook("채팅로그.xlsx")
+            sheet = file.active
+            msg = "채팅로그를 불러온 결과입니다."
+            foot = datetime.today().strftime("%Y년 %m월 %d일 %H시 %M분 %S초")
+            embed = discord.Embed(title="채팅로그", description=msg, color=0xDF013A)  # Embed의 기본 틀(색상, 메인 제목, 설명)을 잡아줍니다
+            embed.set_footer(text=foot)  # 하단에 들어가는 조그마한 설명을 잡아줍니다
+            i = 1
+            while True:
+                if sheet["C" + str(i)].value == str(author):
+                    if sheet["E" + str(i)].value == str(message.guild.id):
+                        if sheet["D" + str(i)].value == str(message.channel.id):
+                            embed.add_field(name=sheet["B" + str(i)].value + "(" + sheet["A" + str(i)].value + ")",
+                                            value=sheet["C" + str(i)].value, inline=True)
+
+                if sheet["A" + str(i)].value == None:
+                    break
+                i += 1
+            await message.channel.send(embed=embed)
+    if message.author.id == 345265069132742657:
+        await message.channel.send("채팅로그불러오기를 시작합니다. 채팅로그를 불러오는 도중에 채팅을 치시면 에러 혹은 불러오기가 안될 수 있습니다.")
+        author = message.content[14:]
+        file = openpyxl.load_workbook("채팅로그.xlsx")
+        sheet = file.active
+        msg = "채팅로그를 불러온 결과입니다."
+        foot = datetime.today().strftime("%Y년 %m월 %d일 %H시 %M분 %S초")
+        embed = discord.Embed(title="채팅로그", description=msg, color=0xDF013A)  # Embed의 기본 틀(색상, 메인 제목, 설명)을 잡아줍니다
+        embed.set_footer(text=foot)  # 하단에 들어가는 조그마한 설명을 잡아줍니다
+        i = 1
+        while True:
+            if sheet["C" + str(i)].value == str(author):
+                if sheet["E" + str(i)].value == str(message.guild.id):
+                    if sheet["D" + str(i)].value == str(message.channel.id):
+                        embed.add_field(name=sheet["B" + str(i)].value + "(" + sheet["A" + str(i)].value + ")",value=sheet["C" + str(i)].value, inline=True)
+
+            if sheet["A" + str(i)].value == None:
+                break
+            i += 1
+        await message.channel.send(embed=embed)
 
     if message.content == "!코로나현황":
         response = requests.get('https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=코로나')
@@ -234,7 +331,7 @@ async def on_message(message):
     if message.content.startswith("!인증"):
         Image_chaptcha = ImageCaptcha()
         a = ""
-        for i in range(10):
+        for i in range(5):
             a += str(random.randint(0,9))
         name = str(message.author.id) + ".png"
         Image_chaptcha.write(a, name)
@@ -243,7 +340,7 @@ async def on_message(message):
             return msg.author == message.author and msg.channel == message.channel
 
         try:
-            msg = await client.wait_for("message",timeout=15, check=check)
+            msg = await client.wait_for("message",timeout=10, check=check)
         except:
             await message.channel.send("시간초과입니다")
             return
@@ -259,20 +356,19 @@ async def on_message(message):
         await message.channel.send(file=discord.File(pic))
 
     if message.content.startswith(""):
-        if message.guild is True:
-            file = openpyxl.load_workbook("채팅로그.xlsx")
-            sheet = file.active
-            i = 1
-            while True:
-                if sheet["A" + str(i)].value == None:
-                    sheet["A" + str(i)].value = str(message.author.id)
-                    sheet["B" + str(i)].value = str(message.author.name)
-                    sheet["C" + str(i)].value = str(message.content)
-                    sheet["D" + str(i)].value = str(message.channel.id)
-                    sheet["E" + str(i)].value = str(message.guild.id)
-                    file.save("채팅로그.xlsx")
-                    break
-                i += 1
+        file = openpyxl.load_workbook("채팅로그.xlsx")
+        sheet = file.active
+        i = 1
+        while True:
+            if sheet["A" + str(i)].value == None:
+                sheet["A" + str(i)].value = str(message.author.id)
+                sheet["B" + str(i)].value = str(message.author.name)
+                sheet["C" + str(i)].value = str(message.content)
+                sheet["D" + str(i)].value = str(message.channel.id)
+                sheet["E" + str(i)].value = str(message.guild.id)
+                file.save("채팅로그.xlsx")
+                break
+            i += 1
 
     if message.content.startswith("!정지추가"):
         file = openpyxl.load_workbook("관리자.xlsx")
@@ -299,4 +395,4 @@ async def on_message(message):
         await message.channel.send(msg)
 
 
-client.run("tocken(여기있는토큰가져간놈 걸리면영정한다)")
+client.run("TOKEN")
